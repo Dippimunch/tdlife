@@ -80,7 +80,6 @@ def play_life(con, root, screen_width, screen_height, a):
                 #window.draw_char(x + 1, y + 1, 176, fg=(200, 100, 50), bg=(200, 200, 200))
             if b[x, y] == 1:
                 alive += 1
-
                 window.draw_char(x + 1, y + 1, 176, fg=(200, 150, 100), bg=(0, 0, 100))
                 window.draw_str(0, 53, "Living: " + str(alive), (220, 180, 140))
     
