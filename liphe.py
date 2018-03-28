@@ -62,7 +62,7 @@ def handle_keys(user_input):
 def play_life(con, root, screen_width, screen_height, a):
     window = tdl.Console(screen_width, screen_height)
 
-    #a = numpy.random.randint(2, size=(50, 50))
+    alive = 0
 
     xmax, ymax = a.shape
     b = a.copy() # copy grid & Rule 2
@@ -79,10 +79,10 @@ def play_life(con, root, screen_width, screen_height, a):
                 b[x, y] = 1 # Rule 4
                 #window.draw_char(x + 1, y + 1, 176, fg=(200, 100, 50), bg=(200, 200, 200))
             if b[x, y] == 1:
-                count = 0
+                alive += 1
 
                 window.draw_char(x + 1, y + 1, 176, fg=(200, 150, 100), bg=(0, 0, 100))
-                window.draw_str(0, 53, "Living: " + str(count), (220, 180, 140))
+                window.draw_str(0, 53, "Living: " + str(alive), (220, 180, 140))
     
     x = 0
     y = 0
