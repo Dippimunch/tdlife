@@ -7,6 +7,8 @@ def main():
     screen_width = 52
     screen_height = 54
 
+    pause = True
+
     tdl.set_font('arial10x10.png', greyscale=True, altLayout=True)
     
     gen = 0
@@ -31,22 +33,23 @@ def main():
         else:
             user_input = None
 
-        #if not user_input:
-            #continue
-
         action = handle_keys(user_input)
 
         advance = action.get('advance')
         new = action.get('new')
 
         if advance:
-            life = play_life(con, root_console, screen_width, screen_height, life)
-            gen += 1
+            pause = not pause
 
         if new:
+            pause = True
             gen = 0
             life = numpy.random.randint(2, size=(50, 50), dtype=numpy.byte)
             play_life(con, root_console, screen_width, screen_height, life)
+
+        if pause == False:
+            life = play_life(con, root_console, screen_width, screen_height, life)
+            gen += 1
 
 def handle_keys(user_input):
     if user_input == None:
@@ -77,9 +80,9 @@ def play_life(con, root, screen_width, screen_height, a):
                     b[x, y] = 0 # Rule 1 and 3
             elif n == 3:
                 b[x, y] = 1 # Rule 4
-                #window.draw_char(x + 1, y + 1, 176, fg=(200, 100, 50), bg=(200, 200, 200))
             if b[x, y] == 1:
                 alive += 1
+
                 window.draw_char(x + 1, y + 1, 176, fg=(200, 150, 100), bg=(0, 0, 100))
                 window.draw_str(0, 53, "Living: " + str(alive), (220, 180, 140))
     
@@ -88,7 +91,5 @@ def play_life(con, root, screen_width, screen_height, a):
     root.blit(window, x, y, 52, 54, 0, 0)
     
     return b
-
-    #play_life(con, root, screen_width, screen_height, b)
     
 main()
